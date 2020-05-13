@@ -1,0 +1,14 @@
+#wp_wall p{margin-bottom:4px}
+#wallcomments p{clear:both}
+#wall_post input{width:100%;color:#222}
+#wall_post textarea{width:100%;color:#222}
+#wallcomments{overflow:auto}
+.wallnav{margin:5px 0 0 0}
+.wallnav a{margin:0 0 0 10px}
+.wallnav img{cursor:pointer}
+.wallauthor{font-weight:700}
+.wallcomment{font-weight:400}
+#wall_post_toggle{cursor:pointer;text-shadow:none;color:#fff}
+.wall-gravatar{float:left;padding-right:5px}
+#wallform .icon {color: #999}
+input#submit_wall_post {color: #fff;}
