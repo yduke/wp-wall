@@ -156,7 +156,7 @@ function WPWall_HeadAction()
 {
 	global $wp_wall_plugin_url;
 	
-	echo '<link rel="stylesheet" href="'.$wp_wall_plugin_url.'/wp-wall.css" type="text/css" />'; 
+	echo '<link rel="stylesheet" href="'.$wp_wall_plugin_url.'wp-wall.css" type="text/css" />'; 
 }
 
 add_action('wp_print_scripts', 'WPWall_ScriptsAction');
@@ -171,10 +171,14 @@ function WPWall_ScriptsAction()
 		
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-form');
-		wp_enqueue_script('wp_wall_script', $wp_wall_plugin_url.'/wp-wall.js', array('jquery', 'jquery-form')); 
+		wp_enqueue_script('wp_wall_script', $wp_wall_plugin_url.'wp-wall.js', array('jquery', 'jquery-form')); 
 		wp_localize_script( 'wp_wall_script', 'WPWallSettings', array(
         'refreshtime' => $options['refresh_time'] * 1000,
-        'expand_box' => $options['expand_box']
+        'expand_box' => $options['expand_box'],
+		'del_comfirm' => __('Are you sure you want to delete this comment?','wp-wall'),
+		'thanks_message' => __('Thank you for your comment!','wp-wall'),
+		'err_message' => __('An error occurred, please notify the administrator.','wp-wall'),
+		'required_message' => __('Please fill in the required fields.','wp-wall')
       ) );
 
 	}
