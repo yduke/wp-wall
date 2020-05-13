@@ -15,12 +15,12 @@ if ($submit_wall_post){
 	// sanity check to see if our page exists
 	if (!$comment_post_ID || !$actual_post || ($comment_post_ID!=$actual_post->ID) )
 	{
-		wp_die('抱歉，留言中不允许包含链接，并且必须有至少一个中文字符，请重试');
+		wp_die( __('Sorry, there was a problem posting your comment. Please try again.','wp-wall') );
 	}
 	
 	if ($options['disable_new'])
 	{
-		wp_die('抱歉，留言被暂时关闭了。');
+		wp_die( __('Sorry, the comments are disabled at the moment.') );
 	}
 	
 	// extract data we need	
@@ -39,16 +39,16 @@ if ($submit_wall_post){
 	  
 	}
 	else if (get_user_by('login',$comment_author))	
-			wp_die('抱歉，你和别人重名了，请重新输个名字。');	
+			wp_die( __('Sorry, you have to pick another name.','wp-wall') );	
 	else if ( $options['only_registered'] )
-		wp_die('Sorry, you must be logged in to post a comment.' );
+		wp_die( __('Sorry, you must be logged in to post a comment.','wp-wall') );
 	
 	// check if the fields are filled		
 	if ( '' == $comment_author )
-		wp_die('错误: 请留个名字');
+		wp_die(__('Error: please type a name.','wp-wall') );
 	
 	if ( '' == $comment_content )
-		wp_die('错误: 请输入你的留言内容。');
+		wp_die(__('Error: please type a comment.','wp-wall'));
 		
 	if ($options['clickable_links'])
 	 $comment_content=WPWall_MakeClickable($comment_content);
@@ -72,7 +72,7 @@ if ($submit_wall_post){
 	$comment = wp_get_comment_status($comment_id);
 	
 	if ('approved' != $comment)
-		wp_die('你的留言与Spam相似，正在等待站长审核。');
+		wp_die( __('Your comment is awaiting moderation.','wp-wall'));
 	
 	// return status
 	nocache_headers();

@@ -1,12 +1,14 @@
 <?php
 
 /*
-Plugin Name: WP Wall
-Version: 1.7.3
-Description: "Wall" widget that appears in your blog's side bar. Readers can add a quick comment about the blog as a whole, and the comment will appear in the sidebar immediately, without reloading the page.
-Author: Vladimir Prelovac
-Author URI: http://www.prelovac.com/vladimir
-Plugin URI: http://www.prelovac.com/vladimir/wordpress-plugins/wp-wall
+ * Plugin Name: WP Wall
+ * Version: 2.0
+ * Description: "Wall" widget that appears in your blog's side bar. Readers can add a quick comment about the blog as a whole, and the comment will appear in the sidebar immediately, without reloading the page.
+ * Author: Vladimir Prelovac
+ * Author URI: http://www.prelovac.com/vladimir
+ * Plugin URI: http://www.prelovac.com/vladimir/wordpress-plugins/wp-wall
+ * Text Domain: wp-wall
+ * Domain Path: /languages
 */
 
 
@@ -28,6 +30,19 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+if (!defined('WPINC')) {
+    die;
+}
+/* Load plugin textdomain. */ 
+function plugin_load_textdomain() { load_plugin_textdomain( 'wp-wall', false, basename( dirname( __FILE__ ) ) . '/languages/' ); } 
+add_action( 'init', 'plugin_load_textdomain' );
+
+
+function wp_wall_init() {
+	$plugin_dir = basename(dirname(__FILE__));
+	load_plugin_textdomain( 'wp-wall', false, $plugin_dir );
+}
+add_action('plugins_loaded', 'wp_wall_init');
 
 
 global $wp_version;	
@@ -224,7 +239,7 @@ function WPWall_ShowComments($page = 1) {
 		 if (  $options['latest'] ) 
 		 {				
 				$latest_comment=date($options['latest'], strtotime($comments[0]->comment_date));
- 				$result='<div id="wp_latest">最近留言时间 '.$latest_comment.'</div>'.$result;
+ 				$result='<div id="wp_latest">' . __('Most Recent: ', 'wp-wall') . $latest_comment. '</div>' . $result;
  			}
 	
 		
