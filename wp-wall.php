@@ -534,11 +534,10 @@ function WPWall_GetExcerpt($text, $length = 25)
 		if ($options['allow_html']=='')
 			$text = strip_tags($text);	
 				
-		$words = explode(' ', $text, $length + 1);
-		if (count($words) > $length) {
-			array_pop($words);
-			array_push($words, '[...]');
-			$text = implode(' ', $words);
+		$words = mb_strlen( $text, 'utf-8' );
+		if ($words > $length) {
+			$text = mb_substr($text,0,$length,'utf-8');
+			$text = $text . '...';
 		}	
 		return $text;
 }
