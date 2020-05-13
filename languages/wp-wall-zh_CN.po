@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Wall\n"
-"POT-Creation-Date: 2020-05-13 20:02+0800\n"
-"PO-Revision-Date: 2020-05-13 20:06+0800\n"
+"POT-Creation-Date: 2020-05-13 21:26+0800\n"
+"PO-Revision-Date: 2020-05-13 21:33+0800\n"
 "Last-Translator: Duke Yin <duke@dukeyin.com>\n"
 "Language-Team: Duke Yin <duke@dukeyin.com>\n"
 "Language: zh_CN\n"
@@ -41,6 +41,70 @@ msgstr "最新评论"
 #, php-format
 msgid "%1$s on %2$s"
 msgstr "%1$s 在 %2$s"
+
+#: wp-wall-ajax.php:18
+msgid "Sorry, there was a problem posting your comment. Please try again."
+msgstr "抱歉，提交评论的时候遇到了问题，请重试。"
+
+#: wp-wall-ajax.php:23
+msgid "Sorry, the comments are disabled at the moment."
+msgstr "抱歉，评论功能被暂时关闭了。"
+
+#: wp-wall-ajax.php:42
+msgid "Sorry, you have to pick another name."
+msgstr "抱歉，您和其他人重名了，需要重新选个名字。"
+
+#: wp-wall-ajax.php:44
+msgid "Sorry, you must be logged in to post a comment."
+msgstr "抱歉，你必须要登录以后才能发布评论。"
+
+#: wp-wall-ajax.php:48
+msgid "Error: please type a name."
+msgstr "错误：请输入名字。"
+
+#: wp-wall-ajax.php:51
+msgid "Error: please type a comment."
+msgstr "错误，请输入评论内容。"
+
+#: wp-wall-ajax.php:75
+msgid "Your comment is awaiting moderation."
+msgstr "您的评论正在等待审核。"
+
+#: wp-wall-widget.php:11
+msgid "All"
+msgstr "所有留言"
+
+#: wp-wall-widget.php:18
+msgid "RSS feed"
+msgstr "RSS订阅"
+
+#: wp-wall-widget.php:22
+msgid "Log in to post a comment."
+msgstr "登录以发布留言。"
+
+#: wp-wall-widget.php:30
+msgid "Logged in as"
+msgstr "身份 "
+
+#: wp-wall-widget.php:33
+msgid "Name"
+msgstr "名字"
+
+#: wp-wall-widget.php:37
+msgid "Email"
+msgstr "电子邮件"
+
+#: wp-wall-widget.php:42
+msgid "Comment"
+msgstr "留言"
+
+#: wp-wall-widget.php:43
+msgid "Start typing here..."
+msgstr "在此处写留言……"
+
+#: wp-wall-widget.php:45
+msgid "Submit"
+msgstr "提交"
 
 #: wp-wall.php:242
 msgid "Most Recent: "
