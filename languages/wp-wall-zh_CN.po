@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Wall\n"
-"POT-Creation-Date: 2020-05-13 22:54+0800\n"
-"PO-Revision-Date: 2020-05-13 22:54+0800\n"
+"POT-Creation-Date: 2020-05-14 18:17+0800\n"
+"PO-Revision-Date: 2020-05-14 18:18+0800\n"
 "Last-Translator: Duke Yin <duke@dukeyin.com>\n"
 "Language-Team: Duke Yin <duke@dukeyin.com>\n"
 "Language: zh_CN\n"
@@ -102,27 +102,31 @@ msgstr "留言"
 msgid "Start typing here..."
 msgstr "在此处写留言……"
 
-#: wp-wall-widget.php:45
+#: wp-wall-widget.php:45 wp-wall.php:168
 msgid "Submit"
 msgstr "提交"
 
-#: wp-wall.php:178
+#: wp-wall.php:164
 msgid "Are you sure you want to delete this comment?"
 msgstr "确定要删除这条留言吗？"
 
-#: wp-wall.php:179
+#: wp-wall.php:165
 msgid "Thank you for your comment!"
 msgstr "感谢您的留言！"
 
-#: wp-wall.php:180
+#: wp-wall.php:166
 msgid "An error occurred, please notify the administrator."
 msgstr "发生了未知的错误，请通知网站的管理员。"
 
-#: wp-wall.php:181
+#: wp-wall.php:167
 msgid "Please fill in the required fields."
 msgstr "请填写所有必填项。"
 
-#: wp-wall.php:246
+#: wp-wall.php:169
+msgid "Please wait"
+msgstr "请稍候"
+
+#: wp-wall.php:234
 msgid "Most Recent: "
 msgstr "最新留言时间： "
 
@@ -131,7 +135,8 @@ msgid "WP Wall"
 msgstr "WP留言墙"
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.prelovac.com/vladimir/wordpress-plugins/wp-wall"
+#. Author URI of the plugin/theme
+msgid "http://www.dukeyin.com/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -140,11 +145,9 @@ msgid ""
 "quick comment about the blog as a whole, and the comment will appear in the "
 "sidebar immediately, without reloading the page."
 msgstr ""
+"出现在博客的侧栏中的“留言墙”小部件。 读者可以快速添加留言，该留言将立即显示"
+"在侧栏中，而无需重新加载页面。"
 
 #. Author of the plugin/theme
-msgid "Vladimir Prelovac"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://www.prelovac.com/vladimir"
+msgid "Vladimir Prelovac, Duke Yin"
 msgstr ""

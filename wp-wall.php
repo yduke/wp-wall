@@ -4,9 +4,9 @@
  * Plugin Name: WP Wall
  * Version: 2.0
  * Description: "Wall" widget that appears in your blog's side bar. Readers can add a quick comment about the blog as a whole, and the comment will appear in the sidebar immediately, without reloading the page.
- * Author: Vladimir Prelovac
- * Author URI: http://www.prelovac.com/vladimir
- * Plugin URI: http://www.prelovac.com/vladimir/wordpress-plugins/wp-wall
+ * Author: Vladimir Prelovac, Duke Yin
+ * Author URI: http://www.dukeyin.com/
+ * Plugin URI: http://www.dukeyin.com/
  * Text Domain: wp-wall
  * Domain Path: /languages
 */
@@ -14,20 +14,6 @@
 
 /*  
 Copyright 2008  Vladimir Prelovac  (email : vprelovac@gmail.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if (!defined('WPINC')) {
@@ -141,7 +127,7 @@ function WPWall_CreatePage() {
 	
 	// fill it with data
 	$mypost->post_title = 'WP Wall Guestbook';
-	$mypost->post_content =  'Welcome to my <a href="http://www.prelovac.com/vladimir/wordpress-plugins/wp-wall">WP Wall</a> Guestbook!';
+	$mypost->post_content =  'Welcome to my Guestbook!';
 	$mypost->post_status = 'draft';
 	$mypost->post_type = 'page';
 	$mypost->comment_status = 'open';
@@ -178,7 +164,9 @@ function WPWall_ScriptsAction()
 		'del_comfirm' => __('Are you sure you want to delete this comment?','wp-wall'),
 		'thanks_message' => __('Thank you for your comment!','wp-wall'),
 		'err_message' => __('An error occurred, please notify the administrator.','wp-wall'),
-		'required_message' => __('Please fill in the required fields.','wp-wall')
+		'required_message' => __('Please fill in the required fields.','wp-wall'),
+		'submit' => __('Submit','wp-wall'),
+		'wait' => __('Please wait','wp-wall'),
       ) );
 
 	}
@@ -445,7 +433,7 @@ function WPWall_Options()
 					<input type="checkbox" name="gravatar"  $gravatar/><label for="gravatar"> Show gravatar images (requires email field option checked) </label>  <br />
 					<br />
 					<input type="checkbox" name="allow_html"  $allow_html/><label for="allow_html"> Allow HTML in comments (use with CAUTION)</label>  <br />
-					&nbsp;&nbsp;&nbsp;<input type="checkbox" name="clickable_links"  $clickable_links/><label for="clickable_links"> Make links clickable ('www.prelovac.com' would become clickable link)</label>  <br />
+					&nbsp;&nbsp;&nbsp;<input type="checkbox" name="clickable_links"  $clickable_links/><label for="clickable_links"> Make links clickable ('www.site.com' would become clickable link)</label>  <br />
 					<br />
 					<input type="checkbox" name="expand_box"  $expand_box/><label for="expand_box"> Show post comment box expanded by default </label>  <br />
 					<br />

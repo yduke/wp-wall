@@ -1,9 +1,9 @@
 === WP Wall ===
-Contributors: freediver
-Donate link: https://www.networkforgood.org/donation/MakeDonation.aspx?ORGID2=510144434
-Tags:  ajax, comments, posts, jquery, post, widget, sidebar, wall, 
+Contributors: freediver, freeduke
+Donate link: https://www.dukeyin.com/donate
+Tags:  ajax, comments, posts, jquery, post, widget, sidebar, wall,
 Requires at least: 2.3
-Tested up to: 4.2
+Tested up to: 5.4.1
 Stable tag: trunk
 
 "Wall" widget that appears in your blog's sidebar acting as a cool shoutbox for your visitors. 
@@ -33,7 +33,7 @@ Plugin by Vladimir Prelovac. Also check out <a href="https://managewp.com">Manag
 
 
 == Changelog ==
-
+= 2.0.0 =Compatible with latest wordpress 5.4.1
 = 1.7.3 =
 * WordPress 4.1 refresh and comaptibility
 
@@ -104,7 +104,7 @@ The same way your usual blog comments work. You can enable comment moderation. O
 
 Just set the refresh time to 5 seconds in the WP Wall options. The Wall becomes a chat-box :)
 
-= Is it possible to display a “Wall-Archive”-Page to show all comments? 
+= Is it possible to display a all-ArchivePage to show all comments? 
 
 Actually you will find WP Wall in your draft pages. Just edit it to your liking and - publish it! All comments will appear at the end of the page as usual.
 
