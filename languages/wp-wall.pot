@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WP Wall\n"
-"POT-Creation-Date: 2020-05-14 18:17+0800\n"
-"PO-Revision-Date: 2020-05-14 18:16+0800\n"
+"POT-Creation-Date: 2020-05-14 18:45+0800\n"
+"PO-Revision-Date: 2020-05-14 18:45+0800\n"
 "Last-Translator: Duke Yin <duke@dukeyin.com>\n"
 "Language-Team: Duke Yin <duke@dukeyin.com>\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,19 @@ msgstr ""
 msgid "Please wait"
 msgstr ""
 
-#: wp-wall.php:234
+#: wp-wall.php:170
+msgid "Error"
+msgstr ""
+
+#: wp-wall.php:171
+msgid "Notice"
+msgstr ""
+
+#: wp-wall.php:172
+msgid "Success"
+msgstr ""
+
+#: wp-wall.php:237
 msgid "Most Recent: "
 msgstr ""
 

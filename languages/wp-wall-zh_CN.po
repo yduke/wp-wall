@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Wall\n"
-"POT-Creation-Date: 2020-05-14 18:17+0800\n"
-"PO-Revision-Date: 2020-05-14 18:18+0800\n"
+"POT-Creation-Date: 2020-05-14 18:55+0800\n"
+"PO-Revision-Date: 2020-05-14 18:55+0800\n"
 "Last-Translator: Duke Yin <duke@dukeyin.com>\n"
 "Language-Team: Duke Yin <duke@dukeyin.com>\n"
 "Language: zh_CN\n"
@@ -126,7 +126,19 @@ msgstr "请填写所有必填项。"
 msgid "Please wait"
 msgstr "请稍候"
 
-#: wp-wall.php:234
+#: wp-wall.php:170
+msgid "Error"
+msgstr "错误"
+
+#: wp-wall.php:171
+msgid "Notice"
+msgstr "注意"
+
+#: wp-wall.php:172
+msgid "Success"
+msgstr "成功"
+
+#: wp-wall.php:237
 msgid "Most Recent: "
 msgstr "最新留言时间： "
 
@@ -137,7 +149,7 @@ msgstr "WP留言墙"
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
 msgid "http://www.dukeyin.com/"
-msgstr ""
+msgstr "http://www.dukeyin.com/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -150,4 +162,4 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Vladimir Prelovac, Duke Yin"
-msgstr ""
+msgstr "Vladimir Prelovac, Duke Yin"

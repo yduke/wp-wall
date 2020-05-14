@@ -167,6 +167,9 @@ function WPWall_ScriptsAction()
 		'required_message' => __('Please fill in the required fields.','wp-wall'),
 		'submit' => __('Submit','wp-wall'),
 		'wait' => __('Please wait','wp-wall'),
+		'error' => __('Error','wp-wall'),
+		'notice' => __('Notice','wp-wall'),
+		'success' => __('Success','wp-wall'),
       ) );
 
 	}
