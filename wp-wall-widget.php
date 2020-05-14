@@ -21,7 +21,7 @@
 <?php if (  $only_registered && !$user_ID) : ?>
 	<p><a href="wp-login.php"><?php _e('Log in to post a comment.','wp-wall') ?></a></p>	
 <?php else : ?>
-	<p><a id="wall_post_toggle" class="button ie6fix"><?php echo $wall_reply; ?></a></p>	
+	<p><a id="wall_post_toggle" class="btn btn--xs btn--message"><span class="btn__text"><?php echo $wall_reply; ?></span></a></p>	
 <?php endif; ?>
 <?php endif; ?>
 <div id="wall_post">
