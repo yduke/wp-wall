@@ -1,7 +1,7 @@
 #wp_wall p{margin-bottom:4px}
 #wallcomments p{clear:both}
 #wall_post input{width:100%}
-#wall_post textarea{width:100%}
+#wall_post textarea{width:100%;color:#767676}
 #wallcomments{overflow:auto}
 .wallnav{margin:5px 0 0 0}
 .wallnav a{margin:0 0 0 10px}
