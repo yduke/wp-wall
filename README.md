@@ -4,4 +4,4 @@ A WordPress guestbook plugin previously by "freedive", but he didn't update this
 
 Thanks freedive.
 
-The work is not done yet though, please don't download this directly from sourcecode, I will make a release when it's done.
+The work is not done yet though, ~~ please don't download this directly from sourcecode,~~ I will make a release when it's done.
