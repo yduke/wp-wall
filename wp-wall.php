@@ -2,7 +2,7 @@
 
 /*
  * Plugin Name: WP Wall
- * Version: 2.0
+ * Version: 2.1
  * Description: "Wall" widget that appears in your blog's side bar. Readers can add a quick comment about the blog as a whole, and the comment will appear in the sidebar immediately, without reloading the page.
  * Author: Vladimir Prelovac, Duke Yin
  * Author URI: http://www.dukeyin.com/

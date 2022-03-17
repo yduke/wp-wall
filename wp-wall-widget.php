@@ -30,11 +30,11 @@
 <p><?php _e('Logged in as','wp-wall') ?><a href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>.</p>
 <?php else : ?>
 <p>
-<div class="input-with-icon"><i class="icon iconfont ico-icon-Male-2"></i><input type="text" name="wpwall_author" id="wpwall_author" value="" placeholder="<?php _e('Name','wp-wall') ?>" tabindex="11" class="validate-required" /></div>
+<div class="input-with-icon"><i class="icon iconfont ico-male"></i><input type="text" name="wpwall_author" id="wpwall_author" value="" placeholder="<?php _e('Name','wp-wall') ?>" tabindex="11" class="validate-required" /></div>
 </p>
 <?php if ( $show_email ) : ?>
 <p>
-<div class="input-with-icon"><i class="icon iconfont ico-icon-Mail-2"></i><input type="text" name="wpwall_email" id="wpwall_email" value="" placeholder="<?php _e('Email','wp-wall') ?>" tabindex="12" class="validate-required validate-email" /></div>
+<div class="input-with-icon"><i class="icon iconfont ico-mail"></i><input type="text" name="wpwall_email" id="wpwall_email" value="" placeholder="<?php _e('Email','wp-wall') ?>" tabindex="12" class="validate-required validate-email" /></div>
 </p>
 <?php endif; ?>
 <?php endif; ?>
