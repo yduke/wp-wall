@@ -1,4 +1,3 @@
-#wp_wall p{margin-bottom:4px}
 #wallcomments p{clear:both}
 #wall_post input{width:100%}
 #wall_post textarea{width:100%;color:#767676}
@@ -8,8 +7,7 @@
 .wallnav img{cursor:pointer}
 .wallauthor{font-weight:700}
 .wallcomment{font-weight:400}
-#wall_post_toggle{cursor:pointer;text-shadow:none;border: 2px solid #565656;text-decoration:none}
-#wall_post_toggle:hover{border:2px solid #9a9a9a;background-color:#111}
+#wall_post_toggle{cursor:pointer;text-shadow:none;text-decoration:none}
 #wall_post_toggle .btn__text{color:#fff}
 .wall-gravatar{float:left;padding-right:5px}
 #wallform .icon {color: #999}
