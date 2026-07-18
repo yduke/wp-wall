@@ -43,22 +43,27 @@ jQuery(document).ready(function($) {
 	});
 	$('.wallnav #img_left').click(function() {
 		var page = $('#wallcomments #page_left');
-		var wallform = $('#wallform');
-		if (wallform[0]) $('#wallcomments').fadeOut(300).load(wallform[0].action + '?refresh=' + page[0].value);
-		$('#wallcomments').fadeIn(100)
+		var url = WPWallSettings.ajaxurl + '?action=wpwall_refresh&refresh=' + page[0].value;
+		$('#wallcomments').fadeOut(300, function() {
+			$(this).html('<div class="wall-loading text-center py-3"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>').fadeIn(100).load(url, function() {
+				$(this).fadeIn(100);
+			});
+		});
 	});
 	$('.wallnav #img_right').click(function() {
 		var page = $('#wallcomments #page_right');
-		var wallform = $('#wallform');
-		if (wallform[0]) $('#wallcomments').fadeOut(300).load(wallform[0].action + '?refresh=' + page[0].value);
-		$('#wallcomments').fadeIn(100)
+		var url = WPWallSettings.ajaxurl + '?action=wpwall_refresh&refresh=' + page[0].value;
+		$('#wallcomments').fadeOut(300, function() {
+			$(this).html('<div class="wall-loading text-center py-3"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>').fadeIn(100).load(url, function() {
+				$(this).fadeIn(100);
+			});
+		});
 	});
 	refreshtime = parseInt(WPWallSettings.refreshtime);
 	if (refreshtime) timeoutID = setInterval(refresh, (refreshtime < 5000) ? 5000 : refreshtime);
 
 	function refresh() {
-		var wallform = $('#wallform');
 		var page = $('#wallcomments #wallpage');
-		if (wallform[0]) $('#wallcomments').fadeOut(300).load(wallform[0].action + '?refresh=' + page[0].value)
+		$('#wallcomments').load(WPWallSettings.ajaxurl + '?action=wpwall_refresh&refresh=' + page[0].value)
 	}
 });

@@ -2,9 +2,9 @@
 
 /*
  * Plugin Name: WP Wall
- * Version: 2.0
+ * Version: 2.1.0
  * Description: "Wall" widget that appears in your blog's side bar. Readers can add a quick comment about the blog as a whole, and the comment will appear in the sidebar immediately, without reloading the page.
- * Author: Vladimir Prelovac, Duke Yin
+ * Author: Duke Yin
  * Author URI: http://www.dukeyin.com/
  * Plugin URI: http://www.dukeyin.com/
  * Text Domain: wp-wall
@@ -12,13 +12,11 @@
 */
 
 
-/*  
-Copyright 2008  Vladimir Prelovac  (email : vprelovac@gmail.com)
-*/
-
 if (!defined('WPINC')) {
     die;
 }
+
+define('WP_WALL_VERSION', '2.1.0');
 /* Load plugin textdomain. */ 
 function plugin_load_textdomain() { load_plugin_textdomain( 'wp-wall', false, basename( dirname( __FILE__ ) ) . '/languages/' ); } 
 add_action( 'init', 'plugin_load_textdomain' );
@@ -43,53 +41,56 @@ if (version_compare($wp_version,"2.3","<"))
 $wp_wall_plugin_url = trailingslashit(plugins_url(null, __FILE__)); 
 
 function WPWall_WidgetControl() {
+	_deprecated_function( __FUNCTION__, '2.1', 'WPWall_Widget::form()' );
 	
-	// get saved options
+	if ( ! function_exists( 'wp_nonce_field' ) ) {
+		return;
+	}
+	
 	$options = WPWall_GetOptions();
 	
-	// handle user input
 	if ( $_POST["wall_submit"] ) {
-		$options['wall_title'] = strip_tags( stripslashes( $_POST["wall_title"] ) );
-		
+		check_admin_referer('wp_wall_widget');
+		$options['wall_title'] = sanitize_text_field( wp_unslash( $_POST["wall_title"] ) );
 		update_option('wp_wall', $options);
 	}
 	
 	$title = $options['wall_title'];
-	
-	// print out the widget control		
-	include('wp-wall-widget-control.php');
+	wp_nonce_field('wp_wall_widget');
+	?>
+	<p><a href="options-general.php?page=wp-wall.php"><?php _e( 'Configure WP Wall', 'wp-wall' ); ?></a></p>
+	<p><label for="wall_title"><?php _e( 'Title', 'wp-wall' ); ?>:
+		<input name="wall_title" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
+	<input type="hidden" name="wall_submit" value="1" />
+	<?php
 }
 
                                                                                
-function WPWall_Widget($args = array() ) {	
+function WPWall_Widget($args = array() ) {
+	_deprecated_function( __FUNCTION__, '2.1', 'WPWall_Widget::widget()' );
 	
-	global  $user_ID,  $user_identity, $wp_wall_plugin_url, $wpdb;		
+	global  $user_ID, $user_identity, $wp_wall_plugin_url, $wpdb;
 	
-	// extract the parameters
-	extract($args);
+	$options = WPWall_GetOptions();
 	
-	// get our options
-	$options=WPWall_GetOptions();	
-
-	extract($options);
+	$before_widget = $args['before_widget'];
+	$after_widget  = $args['after_widget'];
+	$before_title  = $args['before_title'];
+	$after_title   = $args['after_title'];
 	
-	// include our widget
-	include('wp-wall-widget.php');
+	$wall_title  = $options['wall_title'];
+	$wall_reply  = $options['wall_reply'];
+	$show_all    = $options['show_all'];
+	$pageId      = $options['pageId'];
+	$rss_feed    = $options['rss_feed'];
+	$disable_new = $options['disable_new'];
+	$only_registered = $options['only_registered'];
+	$show_email  = $options['show_email'];
 	
-		
+	include 'wp-wall-widget.php';
 }
 
 function WPWall_Init() {
-
-	// register widget
-//	register_sidebar_widget('WP Wall', 'WPWall_Widget');	
-
-	// alternative way
-$widget_options = array('classname' => 'WPWall_Widget', 'description' => "A comment 'Wall' for your sidebar." );
-wp_register_sidebar_widget('WP Wall', 'WP Wall', 'WPWall_Widget', $widget_options);
-
-	// register widget control
-	wp_register_widget_control(395, 'WP Wall', 'WPWall_WidgetControl', array());
 
 	$options = WPWall_GetOptions();
 	
@@ -110,6 +111,17 @@ wp_register_sidebar_widget('WP Wall', 'WP Wall', 'WPWall_Widget', $widget_option
 }
 
 add_action('init', 'WPWall_Init');
+
+add_action('widgets_init', 'WPWall_Register_Widget');
+
+function WPWall_Register_Widget() {
+	register_widget('WPWall_Widget');
+}
+
+add_action('wp_ajax_wpwall_submit', 'wpwall_ajax_submit');
+add_action('wp_ajax_nopriv_wpwall_submit', 'wpwall_ajax_submit');
+add_action('wp_ajax_wpwall_refresh', 'wpwall_ajax_refresh');
+add_action('wp_ajax_nopriv_wpwall_refresh', 'wpwall_ajax_refresh');
 
 function WPWall_CreatePage() {
 
@@ -142,7 +154,7 @@ function WPWall_HeadAction()
 {
 	global $wp_wall_plugin_url;
 	
-	echo '<link rel="stylesheet" href="'.$wp_wall_plugin_url.'wp-wall.css" type="text/css" />'; 
+	wp_enqueue_style('wp-wall', $wp_wall_plugin_url . 'wp-wall.css', array(), WP_WALL_VERSION);
 }
 
 add_action('wp_print_scripts', 'WPWall_ScriptsAction');
@@ -157,10 +169,11 @@ function WPWall_ScriptsAction()
 		
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-form');
-		wp_enqueue_script('wp_wall_script', $wp_wall_plugin_url.'wp-wall.js', array('jquery', 'jquery-form')); 
+		wp_enqueue_script('wp_wall_script', $wp_wall_plugin_url.'wp-wall.js', array('jquery', 'jquery-form'), WP_WALL_VERSION);
 		wp_localize_script( 'wp_wall_script', 'WPWallSettings', array(
         'refreshtime' => $options['refresh_time'] * 1000,
         'expand_box' => $options['expand_box'],
+		'ajaxurl' => admin_url('admin-ajax.php'),
 		'del_comfirm' => __('Are you sure you want to delete this comment?','wp-wall'),
 		'thanks_message' => __('Thank you for your comment!','wp-wall'),
 		'err_message' => __('An error occurred, please notify the administrator.','wp-wall'),
@@ -178,9 +191,12 @@ function WPWall_ScriptsAction()
 function WPWall_ShowComments($page = 1) {
 	global $wpdb, $wp_wall_plugin_url;
 
+	$page = absint($page);
+	if ($page < 1) $page = 1;
+
 	// get our page id	
 	$options = WPWall_GetOptions();					
-	$pageId=$options['pageId'];	
+	$pageId = (int) $options['pageId'];	
 	
 	// number of comments to display
 	if ( !$number = (int) $options['wall_comments'] )
@@ -196,11 +212,12 @@ function WPWall_ShowComments($page = 1) {
 
 
 	// get comments from WordPress database	
-	$count = $wpdb->get_var("
-											SELECT COUNT(*)
-											FROM $wpdb->comments 
-											WHERE comment_approved = '1' AND comment_post_ID=$pageId AND NOT (comment_type = 'pingback' OR comment_type = 'trackback')											
-										");			
+	$count = $wpdb->get_var($wpdb->prepare("
+		SELECT COUNT(*)
+		FROM $wpdb->comments 
+		WHERE comment_approved = '1' AND comment_post_ID = %d AND NOT (comment_type = 'pingback' OR comment_type = 'trackback')",
+		$pageId
+	));			
 	
 	if ($count > $number)
 	{
@@ -213,16 +230,17 @@ function WPWall_ShowComments($page = 1) {
 	}
 	
 		
-	$getnumber=$number*$page;
+	$getnumber = $number * $page;
 										
 	// get comments from WordPress database	
-	$comments = $wpdb->get_results("
-											SELECT *
-											FROM $wpdb->comments 
-											WHERE comment_approved = '1' AND comment_post_ID=$pageId AND NOT (comment_type = 'pingback' OR comment_type = 'trackback')
-											ORDER BY comment_date_gmt DESC 
-											LIMIT $getnumber
-										");										
+	$comments = $wpdb->get_results($wpdb->prepare("
+		SELECT *
+		FROM $wpdb->comments 
+		WHERE comment_approved = '1' AND comment_post_ID = %d AND NOT (comment_type = 'pingback' OR comment_type = 'trackback')
+		ORDER BY comment_date_gmt DESC 
+		LIMIT %d",
+		$pageId, $getnumber
+	));									
 	
 	
 	$comments=array_slice($comments, $getnumber-$number, $number);
@@ -375,7 +393,7 @@ function WPWall_Options()
 	}
 
 	
-	$action_url = $_SERVER['REQUEST_URI'];	
+	$action_url = esc_url($_SERVER['REQUEST_URI']);	
 
 	$disable_new=$options['disable_new']=='on'?'checked':'';
 	$only_registered=$options['only_registered']=='on'?'checked':'';
@@ -555,5 +573,132 @@ function WPWall_Gravatar($comment)
    
    return $return;
 }
+
+class WPWall_Widget extends WP_Widget {
+
+	function __construct() {
+		$widget_ops = array(
+			'classname'   => 'WPWall_Widget',
+			'description' => "A comment 'Wall' for your sidebar.",
+		);
+		parent::__construct('wp_wall', 'WP Wall', $widget_ops);
+	}
+
+	function widget($args, $instance) {
+		global $user_ID, $user_identity, $wp_wall_plugin_url, $wpdb;
+
+		$options = WPWall_GetOptions();
+
+		$before_widget = $args['before_widget'];
+		$after_widget  = $args['after_widget'];
+		$before_title  = $args['before_title'];
+		$after_title   = $args['after_title'];
+
+		$wall_title  = ! empty( $instance['wall_title'] ) ? $instance['wall_title'] : $options['wall_title'];
+		$wall_reply  = $options['wall_reply'];
+		$show_all    = $options['show_all'];
+		$pageId      = $options['pageId'];
+		$rss_feed    = $options['rss_feed'];
+		$disable_new = $options['disable_new'];
+		$only_registered = $options['only_registered'];
+		$show_email  = $options['show_email'];
+
+		include 'wp-wall-widget.php';
+	}
+
+	function form($instance) {
+		$title = ! empty( $instance['wall_title'] ) ? $instance['wall_title'] : 'Wall';
+		?>
+		<p><a href="options-general.php?page=wp-wall.php"><?php _e( 'Configure WP Wall', 'wp-wall' ); ?></a></p>
+		<p><label for="<?php echo $this->get_field_id( 'wall_title' ); ?>"><?php _e( 'Title', 'wp-wall' ); ?>:
+			<input class="widefat" id="<?php echo $this->get_field_id( 'wall_title' ); ?>"
+				name="<?php echo $this->get_field_name( 'wall_title' ); ?>"
+				type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
+		<?php
+	}
+
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['wall_title'] = sanitize_text_field( wp_unslash( $new_instance['wall_title'] ) );
+		return $instance;
+	}
+}
+
+function wpwall_ajax_submit() {
+    check_ajax_referer('wp_wall_post', '_wall_nonce');
+
+    $options = WPWall_GetOptions();
+    $comment_post_ID = $options['pageId'];
+    $actual_post = get_post($comment_post_ID);
+
+    if (!$comment_post_ID || !$actual_post || ($comment_post_ID != $actual_post->ID)) {
+        wp_die(__('Sorry, there was a problem posting your comment. Please try again.', 'wp-wall'));
+    }
+
+    if ($options['disable_new']) {
+        wp_die(__('Sorry, the comments are disabled at the moment.'));
+    }
+
+    $comment_author = isset($_POST['wpwall_author']) ? sanitize_text_field(wp_unslash($_POST['wpwall_author'])) : '';
+    $comment_author_email = isset($_POST['wpwall_email']) ? sanitize_email(wp_unslash($_POST['wpwall_email'])) : '';
+    $comment_author_url = isset($_POST['wpwall_url']) ? esc_url_raw(wp_unslash($_POST['wpwall_url'])) : '';
+
+    $raw_content = isset($_POST['wpwall_comment']) ? $_POST['wpwall_comment'] : '';
+
+    $user = wp_get_current_user();
+    if ($user->ID) {
+        $comment_author = $user->display_name;
+        $comment_author_email = $user->user_email;
+    } elseif (get_user_by('login', $comment_author)) {
+        wp_die(__('Sorry, you have to pick another name.', 'wp-wall'));
+    } elseif ($options['only_registered']) {
+        wp_die(__('Sorry, you must be logged in to post a comment.', 'wp-wall'));
+    }
+
+    if ('' === $comment_author) {
+        wp_die(__('Error: please type a name.', 'wp-wall'));
+    }
+
+    if (!empty($options['allow_html'])) {
+        $comment_content = wp_kses_post(wp_unslash($raw_content));
+    } else {
+        $comment_content = sanitize_textarea_field(wp_unslash($raw_content));
+    }
+
+    if ('' === $comment_content) {
+        wp_die(__('Error: please type a comment.', 'wp-wall'));
+    }
+
+    if (!empty($options['clickable_links'])) {
+        $comment_content = WPWall_MakeClickable($comment_content);
+    }
+
+    $commentdata = array(
+        'comment_post_ID'      => $comment_post_ID,
+        'comment_author'       => $comment_author,
+        'comment_author_email' => $comment_author_email,
+        'comment_author_url'   => $comment_author_url,
+        'comment_content'      => $comment_content,
+        'comment_type'         => '',
+        'comment_parent'       => 0,
+    );
+
+    $comment_id = wp_new_comment($commentdata);
+
+    $comment_status = wp_get_comment_status($comment_id);
+    if ('approved' !== $comment_status) {
+        wp_die(__('Your comment is awaiting moderation.', 'wp-wall'));
+    }
+
+    nocache_headers();
+    wp_die(WPWall_ShowComments());
+}
+
+function wpwall_ajax_refresh() {
+    $page = isset($_GET['refresh']) ? absint($_GET['refresh']) : 1;
+    nocache_headers();
+    wp_die(WPWall_ShowComments($page));
+}
+
 //require_once("recent-comments-widget.php");
 ?>

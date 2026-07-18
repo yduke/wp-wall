@@ -26,7 +26,9 @@
     <?php endif; ?>
     <?php endif; ?>
     <div id="wall_post">
-    <form action="<?php echo $wp_wall_plugin_url.'wp-wall-ajax.php'; ?>" method="post" id="wallform" class="form--square form--no-labels form--active">
+    <form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="wallform" class="form--square form--no-labels form--active">
+    <?php wp_nonce_field('wp_wall_post', '_wall_nonce'); ?>
+    <input type="hidden" name="action" value="wpwall_submit">
     <?php if ( $user_ID ) : ?>
     <p><?php _e('Logged in as','wp-wall') ?><a href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>.</p>
     <?php else : ?>

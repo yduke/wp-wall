@@ -1,7 +1,6 @@
 #wallcomments p{clear:both}
-#wall_post input{width:100%}
-#wall_post textarea{width:100%;color:#767676}
-#wallcomments{overflow:auto}
+.wall-loading{text-align:center;padding:1em 0}
+#wallcomments{overflow:auto;min-height:60px}
 .wallnav{margin:5px 0 0 0}
 .wallnav a{margin:0 0 0 10px}
 .wallnav img{cursor:pointer}
